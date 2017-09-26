@@ -95,3 +95,4 @@ sympy-plots-for-*.tex/
 *.xdy
 
 InfoSec.pdf
+_build/

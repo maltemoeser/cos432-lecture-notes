@@ -1,0 +1,17 @@
+sudo: required
+dist: trusty
+before_install:
+- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
+  texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-generic-extra latex-xcolor
+script:
+- mkdir _build
+- pdflatex -interaction=nonstopmode -halt-on-error -output-directory _build InfoSec.tex
+- pdflatex -interaction=nonstopmode -halt-on-error -output-directory _build InfoSec.tex
+deploy:
+  provider: releases
+  api_key:
+    secure: Ngj1t2pzy4lfC5mAoj35zOOP/oQSQMN4IwEXJ3HmQLoh3U6X+J1dO1JTe68jSciiNTK50qCoY8CT/V2zZBROjCOVDCKXvugqWg/y6S+O65LlDKu4ETHH4hZ/zGNIGuYQYhoKpk7c7xtJEpsL8KQy+PXnffDW9lxcB1n04PiJZT0pE6F8GwBjqT9Gvzma5MFYUY8XscL89EwZplakEBcAzEFbs3kg+bJSNN8y82sY+8z3ndHMZkqY2C0KK6HDM48i3G5XyNdjqVmLFpqwyB2L9ULDojBMxVu+rvqfRJwckHMFhOb20Wler6EX67ygMbw0fqm7c2ymJo9jCCcKcwfSgOYFJwAhBaSVSsgrMk/jimf35YgnxWuh+vP5QXas7zdKoF1EEQMF9gbcDRIe61WCemZQEap+oxevnNPN9gmGpfhAxHJfgbLAnUyoQRWflzRyh4B6Todwha3zlpaBrrVIviyV9f9w7Jk9smVvwyx2vR4T4V07JFfFEWOE6QzBGRfKNrbX1posvaF9tKPNRpnI/GbP6ZOrF0BgEBQitBQcmzB0KGjecs+Hdgd436JTFFNkxhpZoM+ltE4Cgh8uiKIOuuVIL5JsMB1M1nLht7BWqcTMTQyjFa+brbAXTZTVl434ZHA4GM6QbaBKq6TtoqfoVD8mPxY12K93/INR0crh8Ng=
+  file: _build/InfoSec.pdf
+  skip_cleanup: true
+  on:
+    repo: maltemoeser/cos432-lecture-notes
