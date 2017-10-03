@@ -14,5 +14,6 @@ deploy:
   file: _build/InfoSec.pdf
   skip_cleanup: true
   name: COS432 Lecture Notes $(date +'%m/%d/%Y %R')
+  tag_name: $(date +'%Y-%m-%d-%R')
   on:
     repo: maltemoeser/cos432-lecture-notes
