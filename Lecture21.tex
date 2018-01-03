@@ -1,81 +1,97 @@
-%!TEX root = InfoSec.tex
 % Lecture 21: 1 December 2014
-\sektion{21}{Economics of security}
+\sektion{21}{Economics of Security}
+Does the market produce optimal security? To understand this question, we'll first want to to define what "optimal" means. 
 
-\textbf{Does the market produce optimal security?}\\
-\textbf{What is optimal?}
+\subsektion{Definitions of Efficiency}
 
-\begin{enumerate}
-	\item Definition 1: Strong Pareto efficiency
+Definition 1: Strong Pareto Efficiency
+\begin{itemize}
+    \item Condition A is Strong-Pareto-Superior to Condition B if everyone likes A better than B
+    \item "Available alternative" $\implies$ one that is reasonably feasible
+    \item A condition is SP-efficient if: no SP-superior alternative is available
+\end{itemize}
+Definition 2: Kaldor-Hicks efficiency
+\begin{itemize}
+    \item Condition A is KH-superior to Condition B if there exist zero-sum payments among people such that A + P is SP-superior to B
+    \item payments need not happen, just a theoretical construct
+    \item A condition is KH-efficient if: no KH-superior alternative is available
+\end{itemize}
+Using these definitions, consider a world with \emph{perfect information} and \emph{perfect bargaining}. Theorem: Outcomes in this world will be both SP-efficient and KH-efficient. 
+\\
+Proof:
+\begin{itemize}
+	\item SP-Efficient: By contradiction. Assume the outcome is not SP-Efficient. Then an alternative exists that is SP-superior to the existing outcome. However, bargaining would lead to the adoption of this superior outcome.
+	\item KH-Efficient: By contradiction. Assume the outcome is not KH-Efficient. Then there is an alternative A and a set of payments P such that A + P is SP-superior to the existing outcome. Then the outcome isn't SP-Efficient (as proved above).
+\end{itemize}
+Therefore, if we observed market failures, they must result from a breakdown in either perfect information or perfect bargaining.
 
+\subsektion{Market Failures}
+Market failure \#1: Negative Externalities
 	\begin{itemize}
-		\item Condition A is strong Pareto superior to condition B if everyone likes A better than B
-		\item Condition is strong Pareto efficient if no strong Pareto superior alternative is available
-		\item Criticisms: requires that everyone agrees that condition A is better
+		\item If my machine is compromised, some harm falls on me, and some harm falls on strangers (e.g. from denial of service attacks or spam launched from my computer)
+		\item In general, users will invest in reducing harm to themselves, but not to strangers
+		\item Outcome is underinvestment in security, since the external harm doesn't enter into user's cost/benefit calculation
+		\item Breakdown in perfect bargaining, since the "strangers" are unidentified and unable to invest to prevent the harm that falls on them
 	\end{itemize}
 	
-	\item Kaldor-Hicks efficiency
-
+Market failure \#2: Asymmetric Information
 	\begin{itemize}
-		\item Less stringent than Pareto efficiency (which requires that no one is worse off)
-		\item  Condition A is KH superior to condition B if there exists zero-sum payments P among people such that A + payments is strong Pareto superior to B
-	(payments need not happen, theoretical construct)
-		\item For example, if the beneficiaries of pollution could theoretically pay the victims enough that neither party is worse off, that's KH efficient
-		\item Criticisms: payments are theoretical. So taking \$1 from every poor person and giving \$1.02 each to Bill Gates is KH efficient
+		\item Arises when vendors know more than users about the security of their products
+		\item If it is hard for buyers to evaluate the security of products, then they won't be able to differentiate between high-quality and low-quality products
+		\item As a result, users won't pay more for supposedly high-quality products, so producers won't invest to develop more secure products, leading to underinvestment in security
+		\item Antidotes:
+			\begin{itemize}
+				\item Warranties: act as a signal of quality to buyers if companies willing to bear the downside of security breaches
+				\item Seller reputation: companies may be harmed in the long-run by selling poor quality products due to damaged reputation
+				\item Note: both of these solutions don't work well for start-ups, since the lifetime of these companies are short and thus warranties aren't very valuable and seller reputation isn't a large concern
+			\end{itemize}
 	\end{itemize}
-\end{enumerate}
-
-\textbf{A world with perfect information and perfect bargaining} would be SP efficient and KH efficient. 
-
-\textit{Proof:}\\
-\textbf{SP efficiency:} By contradiction: \\
-	Suppose outcome is not SP efficient. Then an alternative exists that is SP superior to outcome. Then bargaining would lead to that alternative.
-
-\textbf{KH efficiency:} also by contradiction:
-	Suppose outcome is not KH efficient. Then there is an alternative A, payments P that A + P is SP superior to outcome. Therefore, outcome is not KH-efficient.
-
-So, there must be some market failure happening because the world is certainly not SP efficient (and thus certainly not KH efficient). \textit{Note that the goal is not maximum security, but efficent security. Invest in a solution only if TOTAL BENEFIT $>$ TOTAL COST}
-
-\subsektion{Market Failure 1}
-\textit{Negative extenalities} (think spam, DDoS). The user will invest in reducing harm to self, but not in reducing harm to strangers. So here, there is an underinvestment in security because there is an external harm (beyond producer to buyer), and bargaining to fix externalities is not possible in the real world.
-
-\subsektion{Market Failure 2}
-\textit{Asymmetric information:} It's hard for buyers to evaluation the security of products. The producer knows more about the security of the product than the customers do.
-
-Recall the ``lemons market'' from a few lectures ago. If a consumer can't tell high quality goods from low quality goods, the consumer won't pay extra for high quality and the producer then won't invest in quality. 
-
-\textbf{Antidotes} 
-\begin{itemize}
-	\item warranties
-	\item seller reputation
-\end{itemize}
-(as a sidenote, both work poorly for startup companies)
-
-\subsektion{Network effects}
-A product that becomes more valuable as more people use it (think email, phone, search engine) tends to push markets towards monopoly. Standards can lead to positive network effects without monopoly. 
-
-\sidenote{
-	\textbf{Network effect cons}\\
-	It leads to a monoculture which can help the bad guys\\
-
-	\textbf{Network effect pros}
+	
+Network Effect:
 	\begin{itemize}
-		\item scale efficiencies in terms of security
-		\item internalize some of the benefits
-		\item antidotes to the lemons market problem with be more effective
-	\end{itemize}	
-}
+		\item Some products tend to become more valuable the more people use it (e.g. search engines)
+		\item Markets for these products tend to be pushed towards monopoly
+		\item Standardization can lead to positive network effect without monopoly
+		\item Argument: network effect $\to$ monoculture
+		\item Example: if all products use the same security protocol, might be easier for bad guys to break lots of system by exploiting a vulnerability in that standard
+		\item However, there are benefits to having a dominant producer of security:
+			\begin{itemize}
+				\item There are scale efficiencies in security, since large companies can amortize investments over a large number of users
+				\item Companies can also internalize some of the security benefits, if users harmed (as in the Negative Externality scenario) fall within the same user base
+				\item Antidotes to asymmetric information are more effective (reputation is more important to large companies than start-ups)
+			\end{itemize}
+	\end{itemize}
+	
+Race to market:
+	\begin{itemize}
+		\item Because of the network effect, companies have a strong incentive to gobble up market share as fast as possible
+		\item Often, minimum viable products tend not to require large investment in security
+		\item Start-ups face decision to invest \$1 in security today and receive a pay-off of \$N in the future
+		\item Lead to a "bolt on security" approach, where security features are added once product is already being used
+	\end{itemize}
+	
+\subsektion{Solutions to Market Failures}
+Large customers tend to be able to protect themselves; for example, they can demand that certain security features be implemented in a product. But what about individual users?
+\\
+\\
+Can market structures improve information flow? \emph{Insurance companies} (i.e. that offer insurance against security breaches) can aggregate the bargaining power of many different customers. \emph{Certification programs}, which would give products/companies certificates of quality, could lead to the same effect. Presumably, certified companies would see more demand and be able to charge higher prices for their products. However, companies are unlikely to pay certification bodies to criticize their software. 
+\\
+\\
+Can we change liability rules? An optimal liability rule: costs should be borne by whoever can best prevent harm. 
+\\
+\\ Case study: ATM Fraud
+	\begin{itemize}
+		\item In the early days of ATMs, many people would withdraw money and claim they didn't to force banks to re-credit their account
+		\item In the US, if there wasn't conclusive proof, banks bore the cost
+		\item In the UK, if there wasn't conclusive proof, customers bore the cost
+		\item level of fraud significantly lower in US, since banks had made investments to gather evidence of withdrawal in order to avoid losses
+		\item Generalizing, this seems like an argument in favor of shifting liability for security flaws to producers, since they are generally in a better position to identify and fix errors in software and hardware
+	\end{itemize}
 
-
-\textbf{Race to market}: Network effect markets will often tip toward the early leader. There might be lots of contenders for a market, but really only one winner. So, time to market is critical. 
-
-This leads to companies getting an MVP into the market as soon as possible and without waiting for better security. They can make a small upfront payment now in hopes of a large payoff later. This leads to a ``bolt on security'' kind of approach. 
-
-\textbf{Can this be fixed?}
-\begin{itemize}
-	\item Large customers can protect themselves. There might also be market structures to improve information flow? For example, insurance companies or certification programs.
-	\item Liability rules can changed so that a producer must pay user if their product caused a breach. \textit{Optimal liability rule: cost borne by whoever can best prevent harm}. This approach argues for liability for producers, BUT it's (1) hard to attribute blame, (2) hard to measure harm, and (3) there's a substantial cost to adjudication.
-	\item Public inspections; a large buyer demands ability to publicize their security evaluations of products 
-\end{itemize}
-
+Some problems with shifting liability:
+	\begin{itemize}
+		\item It's hard to attribute blame: e.g. identifying the true source of a denial of service attack launched from a network of computers in many geographic locations
+		\item It's hard to measure harm: difficult to isolate the harm caused by a single security breach
+		\item There's a substantial cost to adjudication
+	\end{itemize}
 

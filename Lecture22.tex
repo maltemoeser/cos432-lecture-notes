@@ -1,121 +1,130 @@
-%!TEX root = InfoSec.tex
 % Lecture 22: 3 December 2014
 \sektion{22}{Human Factors in Security}
-
-Why do users maker errors?
+We often attribute security failures to "user error." But why do users make so many errors? There are several sources:
 \begin{itemize}
-	\item Bad UI/UX design often leads to mistakes
-
-		Ex. if pilot makes mistake, there needs to be a change in design to make that error harder to make; the blame is on the system and the person
-	\item Rational ignorance, because the cost of informing yourself is greater than 	the cost of a breach. 
-
-		Security/system is too difficult to understand
-	\item Heuristic decision making (mental shortcuts)
-	\item Cognitive biases
-
-		There are certain well-established biases that exist that cause people to make certain types of errors. An adversary might exploit people's cognitive biases to make mistakes
+    \item Bad UI / Poor User Experience (UX)
+    \item Rational ignorance: sometimes, investing the effort to learn how to use security software or a protocol outweighs the benefit
+    \item Heuristic decision making
+    \item Cognitive biases
 \end{itemize}
 
-Often, \textit{relying on a smart user} has hidden costs. For example, Prof. Felton has an anecdote about calling people to authenticate emails, which was a hidden cost for him.
+Relying on a "smart user" has hidden costs. An example is relying on users to detect "spear-fishing emails" and distinguishing malicious attachments from genuine ones. The user might then have to contact colleagues to verify legitimate emails, costing both parties time. Some emails falsely thought to be malicious might never be opened. 
+\\
+\\
+A common mistake when designing security software is to "design for yourself." There are many different kinds of users, and their needs will probably vary over time, so designing software for the use of a knowledgable developer is probably a misguided approach. 
 
-Another common mistake is \textit{designing for yourself}. This can be a problem for other users who can't make sense of your UI, or even for your future self, who may have forgotten how to navigate your UI.
-
-\subsektion{Wifi Encryption}
-Open wifi-networks are not encrypted, but pretty much everybody recommends encrypting wifi networks. Additionally, PUwireless is a closed network that should be encrypted, but isn't.
-
-\textbf{Problem: Key distribution} known to all devices. For example, someone buys a wifi access point, and want to be able to access the internet. Users don't know how to enter in the key.
-
-\textbf{Why don't people encrypt?}
+\subsektion{Example: Wifi Encryption}
 \begin{itemize}
-	\item Encryption is a bad out-of-box experience (when people lose the key/can't find it/etc.)
-	\item Lack of I/O on some devices 
-	\item Need to remember key over time, which is a pain
-\end{itemize}
-
-\textbf{How could we fix this?}
-\begin{itemize}
-	\item exploit physical proximity between devices
-		\begin{itemize}
-			\item "tap to pair this device"
-			\item line-of-sight medium: one device can make a sound that another device can hear/etc.
-		\end{itemize}
-	\item physical transfer of "dongle" that plugs into each of these objects
-	\item try to adopt trust on first use (TOFU approach)
-		\begin{itemize}
-			\item First time two things connect, we believe that it works from there on out and that they are who they say they are. We assume key won't change over device
-			\item This will prevent an impersonation of a device
-
-				Warning-based approach: allow things to connect and warn the user when a new devices are connected ``Hey, someone just connected to your network, is that right?''
-		\end{itemize}
-\end{itemize}
-
-\subsektion{Email Encryption}
-\sidenote {
-	\textbf{A paper titled ``Why Johnny Can't Encrypt''}\\
-	The authors took  PGE e-mail users and provided them with a scenario. They prepoppulated the inbox with Alice and Bob's communication, and then asked the users to provide secure messages to people. \\
-
-	People made ALL kinds of mistakes and seriously screwed up the security chain. Some even sent their own root passwords.\\
-}
-
-This was a user study of secure email which showed that there are LOTS of security problems and LOTS of security errors.
-
-\textbf{Why?}
-\begin{itemize}
-	\item UI design mistakes
-	\item Metaphor mismatch
-
-		For example, the term ``key'': There are two different kinds of keys and no analogy for which is which. This is confusing for the user.
-
-		\textit{Sidenote}: The paper asks: What is the right metaphor for thinking about encryption/signatures? One option: cipher text is very much so like a locked treasure chest, but that's still confusing
-	\item User has to do a lot of work upfront before communicating at all
-
-		For example, users need to spend a lot of time encrypting prior to sending stuff out
-\end{itemize}
-
-\textbf{So what's the user's role?}
-\begin{itemize}
-	\item Control mechanism (think blocking cookies)
-	\item Can use tools (such as clearing history)
-	\item State goals (tell the system what you want)
-\end{itemize}
-
-The \textbf{goal is to have naturally secure interfaces}. For example, the light comes on when camera comes on (though in some devices this can be bypassed). Another example is a push-to-talk button on microphone; the microphone only works when you push it. 
-
-\subsektion{Social barriers to adoption}
-Social barriers to using encrypted email include
-\begin{itemize}
-	\item Stigma attached to use of crypto:\\
-		Usually it's used by someone who's a bit paranoid, don't want to be seen as the kind of person who would encrypt their e-mail
-	\item Etiquette of encrypting message:\\
-		A reply message should be encrypted if and only if the original message was; it's awkward if that's not the case
-	\item Encryption as a barrier to recruitment:\\
-		Cost up front because it makes it harder to bring people in, the benefit comes later; this was the way the system was set up.
-	\item Warning messages:\\
-		Dialog fatigue - too many warning messages on which people just click OK\\
-		Counter measures \textit{(though all have limited value)}:
-			\begin{itemize}
-				\item vary design of the dialog boxes
-				\item No by default
-				\item Delay activation of OK button
-				\item "Hey you really need to read this"
-			\end{itemize}
-\end{itemize}
-
-\sidenote{
-	\textbf{Microsoft's NEAT/SPRUCE framework for security/privacy UX}\\
-	\begin{itemize}
-		\item Is your security or privacy experience Necessary? Can you eliminate or defer user decision?
-		\item Is your security or privacy experience Explained? Do you present all info user needs to make decision? Is it SPRUCE?
-		\item Is it Actionable? That is, is there a set of steps that the user can follow to make the decision correctly
-		\item Is your system Tested? Is it NEAT for all scenarios, both benign and malicious?
-		\item When presenting a choice to the user:
-		\begin{itemize}
-			\item Source: say who is asking for the decision
-			\item Process: give user actionable steps to decision
-			\item Risk: explain what bad thing could happen if user makes wrong decision
-			\item Unique knowledge: tell user what information they bring to the decision
-			\item Choices: list available options, clearly recommend one
-			\item Evidence: highlight info user should include/exclude in making decision\\
-		\end{itemize}
+    \item Everybody recommends encrypting WiFi networks, but a relatively small number of networks are actually encrypted (e.g. powerless)
+    \item Problem: key distribution
+    	\begin{itemize}
+		\item Key must be known to all devices on the network
+		\item Difficult to make the network open to outsiders
+		\item Even if we allow everyone onto the network, it seems silly not to encrypt traffic once people are actually connected to the network
 	\end{itemize}
-}
+    \item Why don't people encrypt?
+       	\begin{itemize}
+		\item Bad out-of-box experience (people can't access internet immediately)
+		\item Some internet-enabled devices don't have I/O (e.g. thermostat, coffee-maker)
+		\item The devices need to remember the key over time
+		\item A secret key known to 15,000 people isn't really a secret
+	\end{itemize}
+   \item How can we fix this?
+         \begin{itemize}
+		\item Exploit physical proximity (e.g. "tap to pair device")
+		\item Physical transfer of key through dongle
+		\item Adopt a "Trust On First Use" (TOFU) policy, which assumes no impersonation the first time a machine connects
+		\item Warning-based approach: warn administrator when a new party connects to the network
+	\end{itemize}
+\end{itemize}
+
+\subsektion{Case study: Email encryption ("Why Johnny Can't Encrypt")}
+Some researchers presented "average users" with a PGP mail client, and asked them to perform tasks that required encryption (e.g. send a secure email to Alice, set up a new secure communication with Charlie). The goals were to observe a) how they use it and b) what mistakes they make. 
+\\
+\\
+The study revealed that average users experienced LOTS of usability problems and made LOTS of security errors. 
+Why?
+\begin{itemize}
+	\item UI design mistakes (e.g. hard to find something in a dropdown menu)
+	\item Metaphor mismatch
+		\begin{itemize}
+			\item e.g. RSA key was visualized with a physical key icon
+			\item but a cryptographic key isn't much like a physical key
+			\item why would a user want to publish their key? (as they do with the public key) why are there two keys (public and private)?
+			\item one suggestion: "ciphertext is a locked chest" (not a perfect analogy)
+		\end{itemize}
+	\item User has to do lots of work up front, before communicating at all
+		\begin{itemize}
+			\item have to first generate a key pair
+			\item this is the point in the process where users understand the least, and are most eager to send a message
+		\end{itemize}
+\end{itemize}
+
+This case study raises the question about what role the user should play in a secure procedure. Should they
+	\begin{itemize}
+		\item control a mechanism? (e.g. "block cookies" on a browser)
+		\item use a tool? (e.g. "clear history" on a browser, which performs many tasks like clearing cache)
+		\item state a goal?
+	\end{itemize}
+	
+The goal for many systems is a "naturally secure interface." One example here is the camera light on a laptop that is intended to light up whenever camera is in use.
+	\begin{itemize}
+		\item user obtains protection against being secretly recorded
+		\item however, on Macs, this light can be bypassed by re-programming firmware that links camera and light
+		\item a better solution would be to build in a \emph{hardware} interlock between camera and light
+	\end{itemize}
+
+\subsektion{Social Barriers to Adoption}
+Case study: an organization that recruits volunteers to break the law in order to put political pressure on issues. Organizations like this have a strong incentive to encrypt, since their threat model includes an adversary (government) with a large amount of resources. 
+\\
+\\ Why don't people encrypt more often?
+	\begin{itemize}
+		\item Stigma attached to use of encryption
+			\begin{itemize}
+				\item only "paranoid" people use encryption
+			\end{itemize}
+		\item Etiquette of encryption
+			\begin{itemize}
+				\item reply should be encrypted if and only if original message was encrypted
+				\item seen as impolite to respond to an unencrypted message with an encrypted message, particularly if replying to a superior
+			\end{itemize}
+		\item Encryption is seen as a barrier to recruitment
+			\begin{itemize}
+				\item the up-front cost of setting up a dedicated email client might discourage volunteers from participating
+			\end{itemize}
+	\end{itemize}
+
+\subsektion{Warning messages}
+Warning messages are often used to preempt security breaches. However, users can suffer from "dialogue fatigue" and either click through important warnings or find workarounds. 
+\\
+\\
+Countermeasures:
+	\begin{itemize}
+		\item Vary design of dialogue
+		\item Make "No" the default (so user can't click enter to move through0
+		\item Delay activation of "OK" button
+		\item "Hey, you really need to read this" approach
+	\end{itemize}
+Lately, designers often choose secure defaults and don't ask the user for an up-front choice. 
+
+\subsektion{NEAT/SPRUCE Framework}
+A set of questions created by Microsoft to guide developers:
+\\
+\\
+NEAT: Is your security/privacy UX:
+	\begin{itemize}
+		\item Necessary? Can you eliminate it or defer user decision?
+		\item Explained? Do you present all info user needs to make decision? Is it SPRUCE?
+		\item Actionable? Is there a set of steps user can follow to make correct decision?
+		\item Tested? Is it NEAT for all scenarios, both benign and malicious?
+	\end{itemize}
+SPRUCE: Why presenting a choice to user, consider
+	\begin{itemize}
+		\item Source: say who is asking for decision (which application / component / machine)
+		\item Process: give user actionable steps to a good decision
+		\item Risk: explain what bad thing could happen if user makes a wrong decision
+		\item Unique knowledge: tell user what info they bring to the decision
+		\item Choices: list available options, clearly recommend one
+		\item Evidence: highlight info user should include/exclude in making the decision
+	\end{itemize}
+	
